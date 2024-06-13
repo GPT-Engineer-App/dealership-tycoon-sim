@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Text, VStack, Box, Button, Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
+import sedanImage from '../../public/images/sedan.png';
+import suvImage from '../../public/images/suv.png';
+import truckImage from '../../public/images/truck.png';
+import coupeImage from '../../public/images/coupe.png';
+import convertibleImage from '../../public/images/convertible.png';
 
 const generateRandomCars = () => {
   const carModels = ["Sedan", "SUV", "Truck", "Coupe", "Convertible"];
+  const carImages = {
+    "Sedan": sedanImage,
+    "SUV": suvImage,
+    "Truck": truckImage,
+    "Coupe": coupeImage,
+    "Convertible": convertibleImage
+  };
   const cars = [];
 
   for (let i = 0; i < 10; i++) {
@@ -10,7 +22,8 @@ const generateRandomCars = () => {
     const price = Math.floor(Math.random() * 20000) + 5000;
     const profit = Math.floor(Math.random() * 5000) + 1000;
     const wildcardRating = Math.floor(Math.random() * 10) + 1;
-    cars.push({ model, price, profit, wildcardRating });
+    const image = carImages[model];
+    cars.push({ model, price, profit, wildcardRating, image });
   }
 
   return cars;
@@ -39,6 +52,7 @@ const Index = () => {
           <Table variant="simple">
             <Thead>
               <Tr>
+                <Th>Image</Th>
                 <Th>Model</Th>
                 <Th>Price</Th>
                 <Th>Profit</Th>
@@ -49,6 +63,7 @@ const Index = () => {
             <Tbody>
               {cars.map((car, index) => (
                 <Tr key={index}>
+                  <Td><img src={car.image} alt={car.model} width="50" /></Td>
                   <Td>{car.model}</Td>
                   <Td>${car.price}</Td>
                   <Td>${car.profit}</Td>
